@@ -4,6 +4,9 @@ on:
   push:
 jobs:
   build-test:
+    permissions:
+      checks: write
+      pull-requests: write
     name: Build & Test
     runs-on: ubuntu-latest
     steps:
