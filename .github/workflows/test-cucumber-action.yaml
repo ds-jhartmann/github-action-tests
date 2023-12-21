@@ -34,5 +34,3 @@ jobs:
         with:
           files: |
             target/**/*.xml
-            target/**/*.trx
-            target/**/*.json
