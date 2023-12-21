@@ -2,8 +2,13 @@ name: Testresult upload
 on:
   pull_request:
   push:
+    branches:
+      - 'main'
 jobs:
   build-test:
+    permissions:
+      checks: write
+      pull-requests: write
     name: Build & Test
     runs-on: ubuntu-latest
     steps:
@@ -23,13 +28,11 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build with Maven
-        run: mvn --batch-mode clean install -pl irs-cucumber-tests,irs-models -D"cucumber.filter.tags"="$ISSUE_FILTER"
+        run: mvn --batch-mode clean install
 
-      - name: Publish Test Results
+      - name: Publish Cucumber Results
         uses: EnricoMi/publish-unit-test-result-action@v2.11.0
         if: always()
         with:
           files: |
-            target/**/*.xml
-            target/**/*.trx
-            target/**/*.json
+            target/**/cucumber-junit.xml
