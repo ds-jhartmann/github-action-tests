@@ -31,7 +31,7 @@ jobs:
         run: mvn --batch-mode clean install
 
       - name: Publish Cucumber Results
-        uses: EnricoMi/publish-unit-test-result-action@v2.14.0
+        uses: EnricoMi/publish-unit-test-result-action@v2.15.1
         if: always()
         with:
           files: |
