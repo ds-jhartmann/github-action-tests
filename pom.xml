@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <cucumber-bom.version>7.18.0</cucumber-bom.version>
-        <junit-bom.version>5.9.2</junit-bom.version>
+        <junit-bom.version>5.10.2</junit-bom.version>
         <assertj-core.version>3.26.0</assertj-core.version>
         <lombok.version>1.18.30</lombok.version>
     </properties>
