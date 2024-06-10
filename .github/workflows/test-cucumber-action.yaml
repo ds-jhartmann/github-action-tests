@@ -28,7 +28,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build with Maven
-        run: mvn --batch-mode clean install 2> target/report-banner.txt
+        run: mvn --batch-mode clean install 2> report-banner.txt
 
       - name: Publish Cucumber Results
         uses: EnricoMi/publish-unit-test-result-action@v2.16.1
@@ -41,7 +41,7 @@ jobs:
         if: always()
         id: get-cucumber-report
         run: |
-          grep -E "^│.*│$"arget/report-banner.txt > cucumber-report.txt
+          grep -E "^│.*│$" report-banner.txt > cucumber-report.txt
           echo "::set-output name=report::$(cat cucumber-report.txt)"
             
       - name: Find previous comment in PR
