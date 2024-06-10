@@ -38,12 +38,14 @@ jobs:
             target/**/cucumber-junit.xml
 
       - name: Get Cucumber Report
+        if: always()
         id: get-cucumber-report
         run: |
           grep -E "^│.*│$" target/log.txt > cucumber-result.txt
           echo "::set-output name=report::$(cat cucumber-result.txt)"
             
       - name: Find previous comment in PR
+        if: always()
         uses: peter-evans/find-comment@v3
         id: find-comment
         with:
@@ -52,6 +54,7 @@ jobs:
           body-includes: 'Cucumber Results:'
 
       - name: Create or update comment in PR
+        if: always()
         uses: peter-evans/create-or-update-comment@v4
         with:
           comment-id: ${{ steps.find-comment.outputs.comment-id }}
