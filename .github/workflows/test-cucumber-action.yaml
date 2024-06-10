@@ -42,7 +42,6 @@ jobs:
         id: get-cucumber-report
         run: |
           grep -E "^│.*│$" report-banner.txt > cucumber-report.txt
-          echo "report=$(cat cucumber-report.txt)" >> $GITHUB_OUTPUT
             
       - name: Find previous comment in PR
         if: always() && github.event_name == 'pull_request'
@@ -51,7 +50,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
-          body-includes: 'Cucumber Results:'
+          body-includes: 'View your Cucumber Report at'
 
       - name: Create or update comment in PR
         if: always() && github.event_name == 'pull_request'
@@ -59,7 +58,5 @@ jobs:
         with:
           comment-id: ${{ steps.find-comment.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            Cucumber Results:
-            ${{ steps.get-cucumber-report.outputs.report }}
+          body-path: 'cucumber-report.txt'
           edit-mode: replace
