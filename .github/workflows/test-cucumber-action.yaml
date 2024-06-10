@@ -44,7 +44,7 @@ jobs:
           echo "::set-output name=report::$(cat cucumber-report.txt)"
             
       - name: Find previous comment in PR
-        if: always()
+        if: github.event_name == 'pull_request'
         uses: peter-evans/find-comment@v3
         id: find-comment
         with:
