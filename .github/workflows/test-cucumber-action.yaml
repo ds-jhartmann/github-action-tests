@@ -28,7 +28,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build with Maven
-        run: mvn --batch-mode clean install
+        run: mvn --batch-mode clean install -l target/log.txt
 
       - name: Publish Cucumber Results
         uses: EnricoMi/publish-unit-test-result-action@v2.16.1
@@ -36,3 +36,27 @@ jobs:
         with:
           files: |
             target/**/cucumber-junit.xml
+
+      - name: Get Cucumber Report
+        id: get-cucumber-report
+        run: |
+          grep -E "^│.*│$" target/log.txt > cucumber-result.txt
+          echo "::set-output name=report::$(cat cucumber-result.txt)"
+            
+      - name: Find previous comment in PR
+        uses: peter-evans/find-comment@v3
+        id: find-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: 'Cucumber Results:'
+
+      - name: Create or update comment in PR
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            Cucumber Results:
+            ${{ steps.get-cucumber-report.outputs.report }}
+          edit-mode: replace
