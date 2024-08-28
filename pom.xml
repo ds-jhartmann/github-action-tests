@@ -16,7 +16,7 @@
 
         <cucumber-bom.version>7.18.1</cucumber-bom.version>
         <junit-bom.version>5.11.0</junit-bom.version>
-        <assertj-core.version>3.26.0</assertj-core.version>
+        <assertj-core.version>3.26.3</assertj-core.version>
         <lombok.version>1.18.34</lombok.version>
     </properties>
 
