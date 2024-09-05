@@ -32,7 +32,7 @@ jobs:
 
       - name: Publish Cucumber Results
         if: always()
-        uses: EnricoMi/publish-unit-test-result-action@v2.17.0
+        uses: EnricoMi/publish-unit-test-result-action@v2.17.1
         with:
           files: |
             target/**/cucumber-junit.xml
